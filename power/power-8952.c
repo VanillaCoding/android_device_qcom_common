@@ -67,7 +67,7 @@ static int profile_high_performance_8952[11] = {
     CPU6_MIN_FREQ_TURBO_MAX, CPU7_MIN_FREQ_TURBO_MAX,
 };
 
-static int profile_power_save_8952[5] = {
+static int profile_power_save_8952[] = {
     0x8fe, 0x3dfd, /* 1 big core, 2 little cores*/
     CPUS_ONLINE_MAX_LIMIT_2,
     CPU0_MAX_FREQ_NONTURBO_MAX, CPU1_MAX_FREQ_NONTURBO_MAX,
@@ -114,24 +114,24 @@ int  power_hint_override(struct power_module *module, power_hint_t hint,
     struct timeval cur_boost_timeval = {0, 0};
     double elapsed_time;
     int resources_launch_boost[] = {
+        ALL_CPUS_PWR_CLPS_DIS,
         SCHED_BOOST_ON,
+        SCHED_PREFER_IDLE_DIS,
         0x20f,
-        0x101,
-        0x3e01,
         0x4001,
         0x4101,
         0x4201,
     };
     int resources_cpu_boost[] = {
+        ALL_CPUS_PWR_CLPS_DIS,
         SCHED_BOOST_ON,
+        SCHED_PREFER_IDLE_DIS,
         0x20d,
-        0x3e01,
-        0x101,
     };
     int resources_interaction_boost[] = {
+        SCHED_PREFER_IDLE_DIS,
         0x20d,
         0x3d01,
-        0x101,
     };
 
     if (hint == POWER_HINT_SET_PROFILE) {
